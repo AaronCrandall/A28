@@ -4,13 +4,14 @@ const cors = require('cors');
 const app = express();
 const port = 3000;
 const jwt = require('jsonwebtoken');
-import data from './data/auth.json';
-import db from './connection';
-
+const {MongoClient} = require('mongodb');
+const data = require('./data/auth.json');
+const uri = "mongodb+srv://Aaron:Aaron@cluster6112.z4k6m.mongodb.net/?retryWrites=true&w=majority&appName=Cluster6112"
 app.use(cors())
+const client = new MongoClient(uri);
 
 //database connection
-mongoose.connect(process.env.ATLAS_URI)
+mongoose.connect(uri)
     .then(()=> console.log("connected to mongoDB"))
     .catch(err => console.log(err));
 
@@ -23,16 +24,32 @@ app.listen(port, () => {
 
 //data fetch for summary page
 app.get('/summary', async (req, res) => {
-    let collection = await db.collection("summary");
-    let results = await collection.find({}).toArray();
-    res.send(results).status(200);
+    try{
+        await client.connect();
+        const db = client.db("5166-final");
+        const collection = db.collection("summary");
+        const documents = await collection.find().toArray();
+        res.send(documents).status(200);
+    }catch (err){
+        console.log(err);
+    }finally {
+        await client.close();
+    }
 })
 
 //data fetch for report page
 app.get('/report', async(req, res)=>{
-    let collection = await db.collection("report");
-    let results = await collection.find({}).toArray();
-    res.send(results).status(200);
+    try{
+        await client.connect();
+        const db = client.db("5166-final");
+        const collection = db.collection("report");
+        const documents = await collection.find().toArray();
+        res.send(documents).status(200);
+    }catch (err){
+        console.log(err);
+    }finally {
+        await client.close();
+    }
 })
 
 //logging in

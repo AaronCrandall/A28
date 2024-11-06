@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { DataService } from '../app/data.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-summary',
@@ -11,9 +11,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './summary.component.css'
 })
 export class SummaryComponent {
-  dataservice: DataService = inject(DataService);
-  ngOnInit(): void{
-    this.dataservice.Chart1Observable!.subscribe((val:any) => {
+  constructor(private dataService: DataService) {
+    this.dataService.Chart1Observable!.subscribe((val:any) => {
       this.createChart(val);
     })
   }
