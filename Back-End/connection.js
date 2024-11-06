@@ -17,6 +17,6 @@ try {
   console.error(err);
 }
 
-let db = client.db("surrounded-by-crime");
+let db = client.db("5166-final");
 
 export default db;
