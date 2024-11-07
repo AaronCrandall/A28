@@ -11,14 +11,9 @@ import { CommonModule } from '@angular/common';
 })
 export class NavComponent {
   ngOnInit(): void{
-    const token = localStorage.getItem('jwt');
-    //if(!token){
-    //  document.getElementById("link1")?.setAttribute("routerLink", "/")
-    //  document.getElementById("link2")?.setAttribute("routerLink", "/")
-    //  document.getElementById("link3")?.setAttribute("routerLink", "/")
-    //}
+
   }
   handleClick(){
-    //localStorage.removeItem("jwt");
+    localStorage.removeItem("jwt");
   }
 }
