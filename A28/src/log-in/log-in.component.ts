@@ -21,7 +21,9 @@ export class LogInComponent {
     let username = (<HTMLInputElement>document.getElementById("user")).value;
     let password = (<HTMLInputElement>document.getElementById("pass")).value;
     console.log(username, password);
-    this.http.post(`Http://localhost:3000/login?user=${username}&pass=${password}`, {user: username, pass: password}).subscribe((res: any)=>{
+    const host = window.location.hostname;
+    const url = `http://${host}:3000/login?user=${username}&pass=${password}`;
+    this.http.post(url, {user: username, pass: password}).subscribe((res: any)=>{
       localStorage.setItem('jwt', res.token);
       this.router.navigate(['/dashboard'])
     });

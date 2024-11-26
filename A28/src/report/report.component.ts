@@ -40,7 +40,9 @@ export class ReportComponent {
   }
 
   public getMethod(){
-    this.http.get("http://localhost:3000/report").subscribe((res: any)=>{
+    const host = window.location.hostname;
+    const url = `http://${host}:3000/report`;
+    this.http.get(url).subscribe((res: any)=>{
       console.log(res);
       for (var i = 0; i < 5; i++) {
         this.dataSource.datasets[0].data[i] = res[i].number;
